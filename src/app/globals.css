@@ -11,6 +11,7 @@
   --ae-accent-dim: #22c55e;
   --ae-card: #111827;
   --ae-border: #1f2937;
+  --scrollbar-size: 6px;
 }
 
 * {
@@ -46,26 +47,77 @@ body::before {
   z-index: -1;
 }
 
-/* Custom scrollbar */
+/* ========================================
+   CUSTOM SCROLLBARS - Consistent & Minimal
+   ======================================== */
+
+/* Webkit browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--ae-darker);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--ae-accent-dim);
-  border-radius: 4px;
+  background: rgba(74, 222, 128, 0.3);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--ae-accent);
+  background: rgba(74, 222, 128, 0.5);
 }
 
-/* Glow effects */
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(74, 222, 128, 0.3) transparent;
+}
+
+/* Custom scrollbar class for specific elements */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(74, 222, 128, 0.3) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: var(--scrollbar-size);
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(74, 222, 128, 0.4);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(74, 222, 128, 0.6);
+}
+
+/* Hide scrollbar but keep functionality (for cleaner mobile look) */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ========================================
+   GLOW EFFECTS
+   ======================================== */
+
 .glow-green {
   box-shadow: 0 0 20px rgba(74, 222, 128, 0.3), inset 0 0 20px rgba(74, 222, 128, 0.05);
 }
@@ -84,20 +136,34 @@ body::before {
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
-/* Item card transitions */
+/* ========================================
+   ITEM CARDS
+   ======================================== */
+
 .item-card {
   transition: all 0.15s ease-out;
+  background: rgba(17, 24, 39, 0.4);
 }
 
 .item-card:hover {
-  transform: translateY(-2px);
-  background: var(--ae-card);
+  transform: translateY(-1px);
+  background: rgba(17, 24, 39, 0.8);
+  border-color: rgba(74, 222, 128, 0.3);
+}
+
+.item-card:active {
+  transform: scale(0.98);
 }
 
 .item-card.selected {
-  background: rgba(74, 222, 128, 0.1);
+  background: rgba(74, 222, 128, 0.12);
   border-color: var(--ae-accent);
+  box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.2);
 }
+
+/* ========================================
+   FORM ELEMENTS
+   ======================================== */
 
 /* Search input styling */
 .search-input {
@@ -113,29 +179,6 @@ body::before {
   outline: none;
 }
 
-/* Category button */
-.category-btn {
-  transition: all 0.15s ease;
-}
-
-.category-btn:hover {
-  background: rgba(74, 222, 128, 0.1);
-  border-color: var(--ae-accent-dim);
-}
-
-.category-btn.active {
-  background: rgba(74, 222, 128, 0.15);
-  border-color: var(--ae-accent);
-  color: var(--ae-accent);
-}
-
-/* Output box */
-.output-box {
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid var(--ae-border);
-  font-family: 'JetBrains Mono', monospace;
-}
-
 /* Checkbox styling */
 .custom-checkbox {
   appearance: none;
@@ -147,6 +190,7 @@ body::before {
   cursor: pointer;
   transition: all 0.15s ease;
   position: relative;
+  flex-shrink: 0;
 }
 
 .custom-checkbox:checked {
@@ -162,10 +206,94 @@ body::before {
   transform: translate(-50%, -50%);
   color: var(--ae-darker);
   font-weight: 700;
-  font-size: 12px;
+  font-size: 11px;
+  line-height: 1;
 }
 
-/* Loading animation */
+/* ========================================
+   CATEGORY BUTTONS
+   ======================================== */
+
+.category-btn {
+  transition: all 0.15s ease;
+}
+
+.category-btn:hover {
+  background: rgba(74, 222, 128, 0.1);
+  border-color: rgba(74, 222, 128, 0.3);
+}
+
+.category-btn.active {
+  background: rgba(74, 222, 128, 0.15);
+  border-color: var(--ae-accent);
+  color: var(--ae-accent);
+}
+
+/* ========================================
+   OUTPUT BOX
+   ======================================== */
+
+.output-box {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--ae-border);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--ae-accent-dim) 0%, var(--ae-accent) 100%);
+  color: var(--ae-darker);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(74, 222, 128, 0.4);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: rgba(17, 24, 39, 0.6);
+  border: 1px solid var(--ae-border);
+  color: #9ca3af;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  border-color: rgba(74, 222, 128, 0.5);
+  color: var(--ae-accent);
+  background: rgba(74, 222, 128, 0.05);
+}
+
+/* ========================================
+   COUNT BADGE
+   ======================================== */
+
+.count-badge {
+  background: rgba(5, 8, 16, 0.8);
+  color: var(--ae-accent);
+  font-weight: 700;
+  font-size: 11px;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
@@ -177,46 +305,184 @@ body::before {
   animation: shimmer 1.5s infinite;
 }
 
-/* Button styles */
-.btn-primary {
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 300px;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    max-height: 300px;
+  }
+  to {
+    opacity: 0;
+    max-height: 0;
+  }
+}
+
+.category-expand {
+  animation: slideDown 0.2s ease-out forwards;
+  overflow: hidden;
+}
+
+.category-collapse {
+  animation: slideUp 0.2s ease-out forwards;
+  overflow: hidden;
+}
+
+/* ========================================
+   MOBILE-SPECIFIC STYLES
+   ======================================== */
+
+@media (max-width: 1023px) {
+  .mobile-category-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.625rem 0.75rem;
+    background: rgba(17, 24, 39, 0.6);
+    border: 1px solid var(--ae-border);
+    border-radius: 0.5rem;
+    color: #e5e7eb;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .mobile-category-toggle:hover {
+    border-color: rgba(74, 222, 128, 0.3);
+  }
+
+  .mobile-category-toggle svg {
+    transition: transform 0.2s ease;
+  }
+
+  .mobile-category-toggle.open svg {
+    transform: rotate(180deg);
+  }
+
+  .mobile-category-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 0.5rem;
+    background: rgba(17, 24, 39, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--ae-border);
+    border-radius: 0.75rem;
+    padding: 0.5rem;
+    max-height: 50vh;
+    overflow-y: auto;
+    z-index: 30;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* ========================================
+   DESKTOP SIDEBAR SCROLLBAR
+   ======================================== */
+
+@media (min-width: 1024px) {
+  .sidebar-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(74, 222, 128, 0.2) transparent;
+  }
+
+  .sidebar-scroll::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .sidebar-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .sidebar-scroll::-webkit-scrollbar-thumb {
+    background: rgba(74, 222, 128, 0.2);
+    border-radius: 4px;
+  }
+
+  .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(74, 222, 128, 0.4);
+  }
+}
+
+/* ========================================
+   ITEMS GRID SCROLLBAR
+   ======================================== */
+
+.items-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(74, 222, 128, 0.25) transparent;
+}
+
+.items-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.items-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  margin: 4px 0;
+}
+
+.items-scroll::-webkit-scrollbar-thumb {
+  background: rgba(74, 222, 128, 0.3);
+  border-radius: 6px;
+}
+
+.items-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(74, 222, 128, 0.5);
+}
+
+/* ========================================
+   FOCUS STATES FOR ACCESSIBILITY
+   ======================================== */
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--ae-accent);
+  outline-offset: 2px;
+}
+
+/* ========================================
+   SELECTION COUNTER FLOATING BADGE
+   ======================================== */
+
+.floating-badge {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
   background: linear-gradient(135deg, var(--ae-accent-dim) 0%, var(--ae-accent) 100%);
   color: var(--ae-darker);
+  padding: 0.75rem 1.25rem;
+  border-radius: 2rem;
   font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-.btn-primary:hover {
-  transform: translateY(-1px);
+  font-size: 0.875rem;
   box-shadow: 0 4px 20px rgba(74, 222, 128, 0.4);
-}
-
-.btn-primary:active {
-  transform: translateY(0);
-}
-
-.btn-secondary {
-  background: transparent;
-  border: 1px solid var(--ae-border);
-  color: #9ca3af;
-  transition: all 0.2s ease;
-}
-
-.btn-secondary:hover {
-  border-color: var(--ae-accent-dim);
-  color: var(--ae-accent);
-}
-
-/* Count badge */
-.count-badge {
-  background: var(--ae-accent);
-  color: var(--ae-darker);
-  font-weight: 700;
-  font-size: 12px;
-  min-width: 24px;
-  height: 24px;
-  border-radius: 12px;
+  z-index: 40;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
+.floating-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px rgba(74, 222, 128, 0.5);
+}
+
+@media (min-width: 1024px) {
+  .floating-badge {
+    display: none;
+  }
+}
