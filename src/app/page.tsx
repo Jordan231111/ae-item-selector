@@ -41,9 +41,10 @@ const categories: Category[] = [
   { name: "Resistance Badges", prefix: "2817" },
   { name: "Special Badges", prefix: "2819" },
   { name: "MP/EXP Badges", prefix: "2818" },
+  { name: "Weapon Manifestation Talegem", prefix: "2061" },
   // Special Content
   { name: "Crystal of Wisdom & Secret Castle", prefixes: ["2132", "2136", "2138"] },
-  { name: "Ode to Origin (All)", prefixes: ["2080", "2078", "2076", "2061"] },
+  { name: "Ode to Origin (All)", prefixes: ["2080", "2078", "2076"] },
   { name: "Time Mine", prefixes: ["9000", "9001"] },
   { name: "Special Fragments & Jadeites", prefix: "2220" },
   { name: "Time Twisted Maze", prefix: "2180" },
